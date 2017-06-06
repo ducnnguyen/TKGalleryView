@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'TKGalleryView'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of TKGalleryView.'
+  s.summary          = 'TKGalleryView browse like Facebook App'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,19 +18,20 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+TKGalleryView browse like Facebook App
+Tiki App avaiable on AppStore
                        DESC
 
-  s.homepage         = 'https://github.com/duc.nguyen@tiki.vn/TKGalleryView'
+  s.homepage         = 'https://github.com/ducnnguyen/TKGalleryView'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'duc.nguyen@tiki.vn' => 'duc.nguyen@tiki.vn' }
-  s.source           = { :git => 'https://github.com/duc.nguyen@tiki.vn/TKGalleryView.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/ducnnguyen/TKGalleryView.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'TKGalleryView/Classes/**/*'
+  s.source_files = 'Pod/Classes/**/*'
   
   # s.resource_bundles = {
   #   'TKGalleryView' => ['TKGalleryView/Assets/*.png']
@@ -38,5 +39,5 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'ReactiveCocoa', '~> 2.5'
 end

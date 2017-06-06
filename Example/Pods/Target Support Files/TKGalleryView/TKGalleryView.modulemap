@@ -1,0 +1,6 @@
+framework module TKGalleryView {
+  umbrella header "TKGalleryView-umbrella.h"
+
+  export *
+  module * { export * }
+}

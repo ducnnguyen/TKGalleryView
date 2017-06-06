@@ -1,0 +1,16 @@
+PODS:
+  - TKGalleryView (0.1.0)
+
+DEPENDENCIES:
+  - TKGalleryView (from `../`)
+
+EXTERNAL SOURCES:
+  TKGalleryView:
+    :path: ../
+
+SPEC CHECKSUMS:
+  TKGalleryView: 0d4f73e6e567fece5086f246082076f8bef9ea2e
+
+PODFILE CHECKSUM: f15639fc174e9de9bb2c4bc9d280a34ed5657cab
+
+COCOAPODS: 1.2.1
