@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TKPhotoThumbnailCell">
+            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0PT-fV-Doa"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3W-il-oky">
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="0PT-fV-Doa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="NiE-3M-FFZ"/>
+                <constraint firstItem="x3W-il-oky" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="WtA-LF-lrG"/>
+                <constraint firstAttribute="trailing" secondItem="x3W-il-oky" secondAttribute="trailing" id="ZDq-ah-ccO"/>
+                <constraint firstItem="0PT-fV-Doa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ckS-Ol-n9f"/>
+                <constraint firstItem="x3W-il-oky" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="eAx-cC-8SG"/>
+                <constraint firstAttribute="trailing" secondItem="0PT-fV-Doa" secondAttribute="trailing" id="gc2-FZ-r3u"/>
+                <constraint firstAttribute="bottom" secondItem="0PT-fV-Doa" secondAttribute="bottom" id="vQ7-oa-rmj"/>
+                <constraint firstAttribute="bottom" secondItem="x3W-il-oky" secondAttribute="bottom" id="xI2-rN-vUC"/>
+            </constraints>
+            <size key="customSize" width="154" height="129"/>
+            <connections>
+                <outlet property="opactityView" destination="x3W-il-oky" id="fDq-6l-fel"/>
+                <outlet property="thumbImageView" destination="0PT-fV-Doa" id="gRY-tw-GEM"/>
+            </connections>
+            <point key="canvasLocation" x="-67" y="115"/>
+        </collectionViewCell>
+    </objects>
+</document>
