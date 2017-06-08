@@ -39,6 +39,8 @@ Tiki App avaiable on AppStore
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'ReactiveCocoa', '~> 2.5'
-  s.dependency 'TTTAttributedLabel'
+    s.dependency 'ReactiveCocoa', '~> 2.5'
+    s.dependency 'TTTAttributedLabel'
+    s.dependency 'HCSStarRatingView'
+    s.dependency 'SDWebImage'
 end

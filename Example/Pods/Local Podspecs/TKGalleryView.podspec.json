@@ -22,6 +22,9 @@
   "dependencies": {
     "ReactiveCocoa": [
       "~> 2.5"
+    ],
+    "TTTAttributedLabel": [
+
     ]
   }
 }

@@ -8,6 +8,8 @@ PODS:
     - ReactiveCocoa/Core
   - TKGalleryView (0.1.0):
     - ReactiveCocoa (~> 2.5)
+    - TTTAttributedLabel
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - TKGalleryView (from `../`)
@@ -18,7 +20,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  TKGalleryView: e0f788625fb9c929d4cdcbaf33bf3dd2633571a6
+  TKGalleryView: ec17f229c54a998550968cbde693c8e06000c433
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
 PODFILE CHECKSUM: f15639fc174e9de9bb2c4bc9d280a34ed5657cab
 
