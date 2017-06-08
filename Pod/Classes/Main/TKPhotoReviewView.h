@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TKPhotoCollectionViewCell.h"
-#import "TKPhotoProtocol.h"
+
 @class PhotoReview;
 @interface TKPhotoReviewView : UIView
 @property (nonatomic,strong) NSArray<PhotoReview> *reviews;
