@@ -6,8 +6,7 @@
 //  Copyright © 2016 ABA. All rights reserved.
 //
 
-#import "ZALable.h"
 
-@interface TKCaptionLabel : ZALable
+@interface TKCaptionLabel : UILabel
 - (void)setTruncatingText:(NSString *) txt;
 @end

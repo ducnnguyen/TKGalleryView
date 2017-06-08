@@ -43,4 +43,5 @@ Tiki App avaiable on AppStore
     s.dependency 'TTTAttributedLabel'
     s.dependency 'HCSStarRatingView'
     s.dependency 'SDWebImage'
+    s.dependency 'pop'
 end

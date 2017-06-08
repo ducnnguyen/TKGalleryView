@@ -20,9 +20,11 @@
 #import "TKBPhotoReviewDetailViewContrller.h"
 #import "TKCaptionProtocol.h"
 #import "TKPhotoCollectionViewCell.h"
+#import "TKPhotoProtocol.h"
 #import "TKPhotoReviewFlowLayout.h"
 #import "TKReviewModalProtocol.h"
 #import "TKTapDetectingPhotoView.h"
+#import "TKTapDetectingView.h"
 #import "TKZommingScrollView.h"
 
 FOUNDATION_EXPORT double TKGalleryViewVersionNumber;
