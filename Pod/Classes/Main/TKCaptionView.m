@@ -10,6 +10,7 @@
 #import "HCSStarRatingView.h"
 #import "TKCaptionTitleCell.h"
 #import "TKCaptionDescriptionCell.h"
+#import "ReactiveCocoa.h"
 
 #define  kDefaultHeightTableCell 50
 @interface TKCaptionView() <UITableViewDelegate,UITableViewDataSource> {

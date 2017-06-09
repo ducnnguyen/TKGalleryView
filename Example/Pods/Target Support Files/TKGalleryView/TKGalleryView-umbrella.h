@@ -20,7 +20,6 @@
 #import "TKBPhotoReviewDetailViewContrller.h"
 #import "TKCaptionProtocol.h"
 #import "TKPhotoCollectionViewCell.h"
-#import "TKPhotoProtocol.h"
 #import "TKPhotoReviewFlowLayout.h"
 #import "TKReviewModalProtocol.h"
 #import "TKTapDetectingPhotoView.h"

@@ -11,8 +11,7 @@
 #import "TKPhotoReviewFlowLayout.h"
 #import "TKCaptionView.h"
 #import "TKPhotoReviewView.h"
-#import "PhotoReview.h"
-#import "ReplyAReviewViewController.h"
+#import "ReactiveCocoa.h"
 
 @interface TKPhotoReviewView() <UICollectionViewDataSource> {
     BOOL _isShowCaption;

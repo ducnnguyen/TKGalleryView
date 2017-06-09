@@ -8,7 +8,8 @@
 
 #import "TKCaptionDescriptionCell.h"
 #import "TTTAttributedLabel.h"
-#import "UIColor+Tiki.h"
+
+#define ColorHEX(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define kNumberOfLines 2
 #define space @"... "
@@ -77,7 +78,7 @@
                 
                 
                 NSAttributedString *seemore = [[NSAttributedString alloc] initWithString:ellipsis attributes:@{
-                                                                                                               NSForegroundColorAttributeName :[UIColor tikiColor],
+                                                                                                               NSForegroundColorAttributeName :ColorHEX(0x1BA8FF),
                                                                                                                NSFontAttributeName : [UIFont systemFontOfSize:14]}];
                 [attributeStr appendAttributedString:spaceAtrribute];
                 [attributeStr appendAttributedString:seemore];
