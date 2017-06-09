@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <TKGalleryView/TKCaptionProtocol.h>
-#import <TKGalleryView/TKReviewModalProtocol.h>
+#import <TKGalleryView/TKGalleryView.h>
 
 @interface TKDatasource : NSObject<TKCaptionProtocol, TKReviewModalProtocol>
 @property (nonatomic, copy) NSString *url;

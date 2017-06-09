@@ -10,6 +10,8 @@
 #import "TKCollectionViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TKDatasource.h"
+#import <TKGalleryView/TKGalleryView.h>
+
 @interface TKViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *datasources;
@@ -63,5 +65,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    TKGalleryViewController *galleryView = [[TKGalleryViewController alloc] init];
+    galleryView.datasource = self;
+    galleryView.delegate = self;
 }
 @end
