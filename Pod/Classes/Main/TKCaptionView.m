@@ -43,8 +43,6 @@
 }
 
 - (void)didTapTableView:(id)sender {
-   
-    
     _heightDescrption = kDefaultHeightTableCell;
     if (self.didExpand) {
         self.didExpand(NO,kDefaultHeightTableCell,self.tableview);
@@ -137,7 +135,7 @@
     @weakify(self);
     if (indexPath.row == 0) {
         TKCaptionTitleCell *titleCell = [tableView dequeueReusableCellWithIdentifier:@"TKCaptionTitleCell" forIndexPath:indexPath];
-        [titleCell setStart:[self.captionObj ratting] title:[self.captionObj titleCaption]];
+        [titleCell setStart:[self.captionObj rating] title:[self.captionObj titleCaption]];
         return titleCell;
     } else if (indexPath.row == 1) {
         TKCaptionDescriptionCell *descriptionCell = [tableView dequeueReusableCellWithIdentifier:@"TKCaptionDescriptionCell" forIndexPath:indexPath];

@@ -70,17 +70,6 @@
         }
     }];
     
-    [self.captionView setDidReply:^{
-        @strongify(self);
-        if (self.didReply) {
-            self.didReply(self.currentIndex, self.reviews[self.currentIndex]);
-        }
-    }];
-    
-    [self.captionView setDidClickThanks:^{
-        @strongify(self);
-        [self thankReview:self.reviews[self.currentIndex] atIndex:self.currentIndex];
-    }];
     self.backgroundColor = self.contentBackground;
     
 }
@@ -125,36 +114,31 @@
     return self;
 }
 
-- (void)setReviews:(NSArray *)reviews {
-    [self setReviews:reviews withStartAtIndex:0 isShowCaption:_isShowCaption];
-}
-- (void)setReviews:(NSArray<PhotoReview*>*)reviews withStartAtIndex:(NSInteger)index isShowCaption:(BOOL)isShowCaption {
-    _reviews = nil;
-    _reviews = [reviews copy];
-    _currentIndex = index;
-    _isShowCaption = isShowCaption;
+- (void)setDatasource:(id<TKGalleryViewDatasource>)datasource {
+    _currentIndex = 0;
+    _isShowCaption = NO;
     self.captionView.hidden = !_isShowCaption;
     self.backgroundView.hidden = !_isShowCaption;
     self.parentCaptionView.hidden = !_isShowCaption;
     if (_isShowCaption) {
-        [_captionView setShowCaption:_reviews[index]];
+        [_captionView setShowCaption:[self.datasource gallery:self.gallery itemAtIndex:_currentIndex]];
     }
     [self.collectionView setAlpha:0];
     [self.collectionView reloadData];
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO];
-        [UIView animateWithDuration:0.33  delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
-            [self.collectionView setAlpha:1];
-        } completion:nil];
-
-    
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO];
+    [UIView animateWithDuration:0.33  delay:0 options:(UIViewAnimationOptionCurveEaseOut) animations:^{
+        [self.collectionView setAlpha:1];
+    } completion:nil];
 }
+
+
+
 - (void)setCurrentIndex:(NSInteger)currentIndex {
     if (_currentIndex != currentIndex) {
         _currentIndex = currentIndex;
         if (_isShowCaption) {
-            [_captionView setShowCaption:_reviews[currentIndex]];
+            [_captionView setShowCaption:[self.datasource gallery:self.gallery itemAtIndex:_currentIndex]];
         }
-
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO];
     }
 }
@@ -163,27 +147,29 @@
     return [[self.collectionView visibleCells] lastObject];
 }
 
-- (void)thankReview:(PhotoReview*)photoReview atIndex:(NSInteger)index {
-    @weakify(self);
-    [ApiEngine thankAReview:photoReview.review.identifier onComplete:^{
-        @strongify(self);
-        photoReview.review.thankCount ++;
-        [self.captionView setShowCaption:photoReview];
-    } onFailure:^(NSString *error) {
-        
-    }];
-}
+//- (void)thankReview:(PhotoReview*)photoReview atIndex:(NSInteger)index {
+//    @weakify(self);
+//    [ApiEngine thankAReview:photoReview.review.identifier onComplete:^{
+//        @strongify(self);
+//        photoReview.review.thankCount ++;
+//        [self.captionView setShowCaption:photoReview];
+//    } onFailure:^(NSString *error) {
+//        
+//    }];
+//}
 
 #pragma mark- CollectionView DataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.reviews count];
+    if (self.datasource) {
+        return [self.datasource numberOfPhotos:self.gallery];
+    }
+    return 0;
 }
 
 - ( UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TKPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TKPhotoCollectionViewCell" forIndexPath:indexPath];
-    
-    id <TKReviewModalProtocol> photoReviews = [self.reviews objectAtIndex:indexPath.row];
+    id <TKReviewModalProtocol> photoReviews = [self.datasource gallery:self.gallery itemAtIndex:indexPath.row];
     [cell setPhoto:photoReviews];
     return cell;
 }
@@ -210,7 +196,7 @@
     CGPoint currentPoint = scrollView.contentOffset;
     NSIndexPath *indexPath = [self indexPathForCollectionView:self.collectionView Point:currentPoint];
     _currentIndex = indexPath.row;
-    [_captionView setShowCaption:_reviews[_currentIndex]];
+    [_captionView setShowCaption:[self.datasource gallery:self.gallery itemAtIndex:_currentIndex]];
 
     if (self.photoReviewDidChange) {
         self.photoReviewDidChange(self,self.currentIndex);

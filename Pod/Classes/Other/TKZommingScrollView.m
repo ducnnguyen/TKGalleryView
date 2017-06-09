@@ -8,6 +8,8 @@
 
 #import "TKZommingScrollView.h"
 #import "UIImageView+WebCache.h"
+#import "ReactiveCocoa.h"
+
 @interface TKZommingScrollView()
 @property (nonatomic,strong) TKTapDetectingView *detectingView;
 @end
@@ -59,32 +61,29 @@
         self.maximumZoomScale = 1;
         self.minimumZoomScale = 1;
         self.zoomScale = 1;
-        
         self.contentSize = CGSizeZero;
         
-        
-        //Get Image '
-        __weak typeof(self) self_weak = self;
+        @weakify(self)
         NSString *strURL = [self.photo tk_fullPathImage];
-        [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:strURL] placeholderImage:kAppPlaceHolderImage options:0 completed:^(UIImage *imageServer, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            
+        [self.photoImageView sd_setImageWithURL:[NSURL URLWithString:strURL] placeholderImage:[UIImage imageNamed:@"place_holder"] options:0 completed:^(UIImage *imageServer, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            @strongify(self)
             UIImage *image = imageServer; //[self.photo getImage];
             if (!image) {
-                image = kAppPlaceHolderImage;
+                image = [UIImage imageNamed:@"place_holder"];
             }
-                self_weak.photoImageView.image = image;
-                self_weak.photoImageView.hidden = NO;
+                self.photoImageView.image = image;
+                self.photoImageView.hidden = NO;
                 
                 //Photo frame
                 CGRect photoImageFrame;
                 photoImageFrame.origin = CGPointZero;
                 photoImageFrame.size = image.size;
-                self_weak.photoImageView.frame = photoImageFrame;
-                self_weak.contentSize = photoImageFrame.size;
+                self.photoImageView.frame = photoImageFrame;
+                self.contentSize = photoImageFrame.size;
                 
                 //Minimum
-                [self_weak setMaxMinZoomScalesForCurrentBounds];
-                [self_weak setNeedsDisplay];
+                [self setMaxMinZoomScalesForCurrentBounds];
+                [self setNeedsDisplay];
         }];
 
     }

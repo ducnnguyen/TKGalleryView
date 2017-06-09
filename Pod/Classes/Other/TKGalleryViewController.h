@@ -7,19 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol TKGalleryViewDelegate;
-@protocol TKGalleryViewDatasource;
+#import "TKReviewModalProtocol.h"
+#import "TKGalleryDelegateAndDatasource.h"
 
 @interface TKGalleryViewController : UIViewController
-@property (nonatomic,weak) id <TKGalleryViewDatasource> datasource;
-@property (nonatomic,weak) id <TKGalleryViewDelegate> delegate;
+
+@property (nonatomic, weak) id <TKGalleryViewDatasource> datasource;
+@property (nonatomic, weak) id <TKGalleryViewDelegate> delegate;
 @property (nonatomic,strong) UIImage *scaleImage;
 @property (nonatomic,strong) UIColor *reviewBackground;
 @property (nonatomic) UIViewContentMode contentMode;
 
 - (id)initWithAnimationFromView:(UIView *)view;
 - (id)initWithAnimationFromView:(UIView *)view showCaption:(BOOL)isShowCaption;
-- (void)setDataSource:(id)listDataSouce;
+
 - (void)setDataSource:(id)listDataSouce atIndex:(NSInteger)index;
 
 @property (nonatomic) NSInteger currentIndex;
@@ -27,18 +28,3 @@
 @end
 
 
-@protocol TKGalleryViewDatasource <NSObject>
-@required
-- (NSInteger)numberOfPhotos:(TKGalleryViewController*)gallery;
-- (NSString*)gallery:(TKGalleryViewController*)gallery imageAtIndex:(NSInteger)index;
-@optional
-- (NSString*)gallery:(TKGalleryViewController*)gallery captionAtIndex:(NSInteger)index;
-- (CGFloat)gallery:(TKGalleryViewController*)gallery ratingAtIndex:(NSInteger)index;
-
-@end
-
-@protocol TKGalleryViewDelegate <NSObject>
-- (void)photo:(TKGalleryViewController *)photo didClickThanksAtIndex:(NSInteger)index;
-
-
-@end

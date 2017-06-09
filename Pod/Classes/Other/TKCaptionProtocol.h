@@ -10,11 +10,11 @@
 
 @protocol TKCaptionProtocol <NSObject>
 @optional
-- (NSInteger)ratting;
-- (NSString *)reviewer;
-- (NSString *)titleCaption;
-- (NSString *)contentReview;
-- (NSString *)dateReview;
+- (NSInteger) rating;
+- (NSString*) reviewer;
+- (NSString*) titleCaption;
+- (NSString*) contentReview;
+- (NSString*) dateReview;
 - (BOOL)isLike;
 - (BOOL)isDidBuy;
 - (NSInteger)numberOfThanks;

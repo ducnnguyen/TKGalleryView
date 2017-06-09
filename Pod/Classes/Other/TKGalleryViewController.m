@@ -37,28 +37,18 @@
 
 @implementation TKGalleryViewController
 @synthesize reviewBackground  = _reviewBackground;
+
 - (id)init {
     self = [super init];
     if (self) {
-        _applicationWindow = [[[UIApplication sharedApplication] delegate] window];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
-        {
-            self.modalPresentationStyle = UIModalPresentationCustom;
-            self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            self.modalPresentationCapturesStatusBarAppearance = YES;
-        }
-        else
-        {
-            _applicationTopViewController = [self topviewController];
-            _previousModalPresentationStyle = _applicationTopViewController.modalPresentationStyle;
-            _applicationTopViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-            self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        }
+        self.modalPresentationStyle = UIModalPresentationCustom;
         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-
+        self.modalPresentationCapturesStatusBarAppearance = YES;
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     }
     return self;
 }
+
 - (id)initWithAnimationFromView:(UIView *)view {
     return [self initWithAnimationFromView:view showCaption:YES];
 }
@@ -71,6 +61,7 @@
     }
     return self;
 }
+
 #pragma mark-
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -113,6 +104,7 @@
 
     }];
     
+    /*
     [self.contentView setDidClickThanks:^(NSInteger index, PhotoReview *photoReview) {
     }];
     [self.contentView setDidReply:^(NSInteger index, PhotoReview *photoReview) {
@@ -134,6 +126,8 @@
 
         });
     }
+    */
+    
     self.footerView.footerBackground = self.reviewBackground;
     self.contentView.contentBackground = self.reviewBackground;
     self.view.backgroundColor =self.reviewBackground;
@@ -144,11 +138,12 @@
     if (isClearColor) {
         self.contentView.btnTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.54];
     }
-
 }
+
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+
 - (void)setReviewBackground:(UIColor *)reviewBackground {
     _reviewBackground = reviewBackground;
 }
@@ -156,6 +151,9 @@
 - (UIColor *)reviewBackground {
     return _reviewBackground ? _reviewBackground : [UIColor blackColor];
 }
+
+
+
 - (void)performPresentAnimation {
     self.view.alpha = 0;
     
@@ -248,13 +246,11 @@
 - (void)prepareForClosePhotoBrowser {
     // Gesture
     [_applicationWindow removeGestureRecognizer:_panGesture];
-    
-    
-    // Controls
+        // Controls
     [NSObject cancelPreviousPerformRequestsWithTarget:self]; // Cancel any pending toggles from taps
 }
-- (CGRect)animationFrameForImage:(UIImage *)image presenting:(BOOL)presenting scrollView:(TKPhotoCollectionViewCell *)scrollView
-{
+
+- (CGRect)animationFrameForImage:(UIImage *)image presenting:(BOOL)presenting scrollView:(TKPhotoCollectionViewCell *)scrollView {
     if (!image) {
         return CGRectZero;
     }
@@ -285,10 +281,15 @@
     return animationFrame;
 }
 
+- (void)setDelegate:(id<TKGalleryViewDelegate>)delegate {
+    self.contentView.delegate = delegate;
+}
+- (void)setDatasource:(id<TKGalleryViewDatasource>)datasource {
+    self.contentView.datasource = datasource;
+}
 #pragma mark - pop Animation
 
-- (void)animateView:(UIView *)view toFrame:(CGRect)frame completion:(void (^)(void))completion
-{
+- (void)animateView:(UIView *)view toFrame:(CGRect)frame completion:(void (^)(void))completion {
     POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     [animation setSpringBounciness:6];
     [animation setDynamicsMass:1];

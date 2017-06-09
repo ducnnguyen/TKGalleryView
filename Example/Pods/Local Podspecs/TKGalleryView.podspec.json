@@ -19,6 +19,11 @@
     "ios": "8.0"
   },
   "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "TKGalleryView": [
+      "Pod/Assets/*.xcassets"
+    ]
+  },
   "dependencies": {
     "ReactiveCocoa": [
       "~> 2.5"
