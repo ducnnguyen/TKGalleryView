@@ -18,6 +18,7 @@
 #import "TKCaptionView.h"
 #import "TKPhotoReviewView.h"
 #import "TKCaptionProtocol.h"
+#import "TKGalleryDelegateAndDatasource.h"
 #import "TKGalleryViewController.h"
 #import "TKPhotoCollectionViewCell.h"
 #import "TKPhotoReviewFlowLayout.h"
