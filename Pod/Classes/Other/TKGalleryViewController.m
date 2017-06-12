@@ -75,7 +75,12 @@
         make.bottom.mas_equalTo(0);
         make.top.mas_equalTo(0);
     }];
-    self.footerView = [[[NSBundle bundleForClass:[TKThumbnailView class]] loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
+    NSBundle *podBundle = [NSBundle bundleForClass:[self.class class]];
+    
+    NSURL *bundleURL = [podBundle URLForResource:@"TKGalleryView" withExtension:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
+    
+    self.footerView = [[bundle loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
     [self.parentView addSubview:self.footerView];
     [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);

@@ -13,5 +13,6 @@
 #import "TKGalleryViewController.h"
 #import "TKGalleryDelegateAndDatasource.h"
 #import "TKReviewModalProtocol.h"
+#import "UIView+PodBundle.h"
 
 #endif /* TKGalleryView_h */
