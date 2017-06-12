@@ -32,7 +32,7 @@ Tiki App avaiable on AppStore
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'Pod/Classes/**/*.{h,m}'
-  s.resource = 'Pod/Classes/**/*.nib'
+  s.resources = 'Pod/Classes/**/*.nib'
     s.resource_bundles = {
         'TKGalleryView' => ['Pod/Assets/*.xcassets'],
     }

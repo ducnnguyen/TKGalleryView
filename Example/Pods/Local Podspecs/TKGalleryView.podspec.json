@@ -19,12 +19,10 @@
     "ios": "8.0"
   },
   "source_files": "Pod/Classes/**/*.{h,m}",
+  "resources": "Pod/Classes/**/*.nib",
   "resource_bundles": {
     "TKGalleryView": [
       "Pod/Assets/*.xcassets"
-    ],
-    "OtherResources": [
-      "Pod/Classes/**/*.nib"
     ]
   },
   "dependencies": {
