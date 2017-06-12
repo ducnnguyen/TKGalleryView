@@ -33,7 +33,7 @@ Tiki App avaiable on AppStore
 
     s.source_files = 'Pod/Classes/**/*.{h,m}'
     s.resource_bundles = {
-        'TKGalleryView' => ['Pod/Assets/**/*.{xcassets,xib}']
+        'TKGalleryView' => ['Pod/Assets/**/*.{xcassets,xib,png}']
     }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
