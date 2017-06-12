@@ -15,7 +15,6 @@
 @synthesize footerBackground = _footerBackground;
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"TKPhotoThumbnailCell" bundle:[NSBundle bundleForClass:[TKPhotoThumbnailCell class]]] forCellWithReuseIdentifier:@"TKPhotoThumbnailCell"];
 }
 - (UIColor *)footerBackground {
