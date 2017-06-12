@@ -67,7 +67,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     TKCollectionViewCell *cell = (TKCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     TKGalleryViewController *reviewDetail = [[TKGalleryViewController alloc] initWithAnimationFromView:cell];
-    reviewDetail.view.alpha = 0;
     UIImage *image = cell.imageView.image ;
     reviewDetail.scaleImage = image;
     reviewDetail.datasource = self;

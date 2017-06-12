@@ -16,7 +16,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self.collectionView registerNib:[UINib nibWithNibName:@"TKPhotoThumbnailCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"TKPhotoThumbnailCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"TKPhotoThumbnailCell" bundle:[NSBundle bundleForClass:[TKPhotoThumbnailCell class]]] forCellWithReuseIdentifier:@"TKPhotoThumbnailCell"];
 }
 - (UIColor *)footerBackground {
     return _footerBackground != nil ? _footerBackground : [UIColor blackColor];
@@ -50,7 +50,7 @@
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
     if (![[self subviews] count]) {
         TKThumbnailView *loadedView = nil;
-        loadedView = [[[NSBundle mainBundle] loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
+        loadedView = [[[NSBundle bundleForClass:[TKThumbnailView class]] loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
         loadedView.frame = self.frame;
         loadedView.autoresizingMask = self.autoresizingMask;
         loadedView.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;

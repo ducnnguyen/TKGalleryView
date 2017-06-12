@@ -35,8 +35,8 @@
     _heightDescrption = kDefaultHeightTableCell;
     [self.labelStatusBuy.layer setBorderWidth:1];
     [self.labelStatusBuy.layer setBorderColor:[UIColor colorWithRed:251/255.f green:130/255.f blue:39/255.f alpha:1].CGColor];
-    [self.tableview registerNib:[UINib nibWithNibName:@"TKCaptionTitleCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TKCaptionTitleCell"];
-    [self.tableview registerNib:[UINib nibWithNibName:@"TKCaptionDescriptionCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"TKCaptionDescriptionCell"];
+    [self.tableview registerNib:[UINib nibWithNibName:@"TKCaptionTitleCell" bundle:[NSBundle bundleForClass:[TKCaptionTitleCell class]]] forCellReuseIdentifier:@"TKCaptionTitleCell"];
+    [self.tableview registerNib:[UINib nibWithNibName:@"TKCaptionDescriptionCell" bundle:[NSBundle bundleForClass:[TKCaptionDescriptionCell class]]] forCellReuseIdentifier:@"TKCaptionDescriptionCell"];
     self.tableview.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     UITapGestureRecognizer *tapabc = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTableView:)];
     [self.tableview addGestureRecognizer:tapabc];
@@ -61,7 +61,7 @@
     
     if (![[self subviews] count]) {
         TKCaptionView *loadedView = nil;
-        loadedView = [[[NSBundle mainBundle] loadNibNamed:@"TKCaptionView" owner:nil options:nil] firstObject];
+        loadedView = [[[NSBundle bundleForClass:[TKCaptionView class]] loadNibNamed:@"TKCaptionView" owner:nil options:nil] firstObject];
         loadedView.frame = self.frame;
         loadedView.autoresizingMask = self.autoresizingMask;
         loadedView.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;

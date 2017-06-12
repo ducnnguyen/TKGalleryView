@@ -82,7 +82,7 @@
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
     if (![[self subviews] count]) {
         TKPhotoReviewView *loadedView = nil;
-        loadedView = [[[NSBundle mainBundle] loadNibNamed:@"TKPhotoReviewView" owner:nil options:nil] firstObject];
+        loadedView = [[[NSBundle bundleForClass:[TKPhotoReviewView class]] loadNibNamed:@"TKPhotoReviewView" owner:nil options:nil] firstObject];
         loadedView.frame = self.frame;
         loadedView.autoresizingMask = self.autoresizingMask;
         loadedView.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;

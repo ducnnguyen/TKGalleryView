@@ -67,14 +67,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.alpha  = 0;
-    self.parentView =  [[UIView alloc] initWithFrame:CGRectZero];
+    self.parentView =  [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.parentView];
-    UIEdgeInsets padding = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.parentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).with.insets(padding);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.top.mas_equalTo(0);
     }];
-    
-    self.footerView = [[[NSBundle mainBundle] loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
+    self.footerView = [[[NSBundle bundleForClass:[TKThumbnailView class]] loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
     [self.parentView addSubview:self.footerView];
     [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
@@ -83,7 +84,7 @@
         make.height.mas_equalTo(72);
     }];
     
-    self.contentView = [[[NSBundle mainBundle] loadNibNamed:@"TKPhotoReviewView" owner:nil options:nil] firstObject];
+    self.contentView = [[[NSBundle bundleForClass:[TKPhotoReviewView class]] loadNibNamed:@"TKPhotoReviewView" owner:nil options:nil] firstObject];
     [self.parentView addSubview:self.contentView];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
