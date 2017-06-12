@@ -12,6 +12,7 @@
 #import "TKPhotoCollectionViewCell.h"
 #import "pop/POP.h"
 #import "ReactiveCocoa.h"
+#import "Masonry.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -23,14 +24,14 @@
     BOOL _isShowCaption;
 }
 
-@property (weak, nonatomic) IBOutlet TKPhotoReviewView *contentView;
-@property (weak, nonatomic) IBOutlet TKThumbnailView *footerView;
-@property (nonatomic,strong)     UIPanGestureRecognizer *panGesture;
-@property (weak, nonatomic) IBOutlet UIView *parentView;
-@property (nonatomic,strong) id dataSourceLive;
+@property (strong, nonatomic) TKPhotoReviewView *contentView;
+@property (strong, nonatomic) TKThumbnailView *footerView;
+@property (nonatomic, strong)     UIPanGestureRecognizer *panGesture;
+@property (strong, nonatomic) UIView *parentView;
+@property (nonatomic, strong) id dataSourceLive;
 @property (nonatomic) NSInteger indexLib;
-@property (nonatomic,strong) NSArray *arr ;
-@property (nonatomic,strong) UIView *animatedView;
+@property (nonatomic, strong) NSArray *arr ;
+@property (nonatomic, strong) UIView *animatedView;
 @property (nonatomic) CGRect rectFromPresent;
 
 @end
@@ -66,6 +67,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.alpha  = 0;
+    self.parentView =  [[UIView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:self.parentView];
+    UIEdgeInsets padding = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self.parentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).with.insets(padding);
+    }];
+    
+    self.footerView = [[[NSBundle mainBundle] loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
+    [self.parentView addSubview:self.footerView];
+    [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(72);
+    }];
+    
+    self.contentView = [[[NSBundle mainBundle] loadNibNamed:@"TKPhotoReviewView" owner:nil options:nil] firstObject];
+    [self.parentView addSubview:self.contentView];
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.top.mas_equalTo(0);
+        make.bottom.equalTo(self.footerView.mas_top).with.offset(0);
+    }];
+    
     self.contentView.gallery = self;
     [[UIApplication sharedApplication] setStatusBarHidden:YES
                                             withAnimation:UIStatusBarAnimationFade];

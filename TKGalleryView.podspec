@@ -33,9 +33,10 @@ Tiki App avaiable on AppStore
 
   s.source_files = 'Pod/Classes/**/*'
   
- s.resource_bundles = {
-  'TKGalleryView' => ['Pod/Assets/*.xcassets']
- }
+    s.resource_bundles = {
+        'TKGalleryView' => ['Pod/Assets/*.xcassets'],
+        'TKGalleryView' => ['Pod/Classes/*.nib']
+    }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
