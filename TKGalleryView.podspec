@@ -35,7 +35,7 @@ Tiki App avaiable on AppStore
     s.resource_bundles = {
         'TKGalleryView' => ['Pod/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png}']
     }
-    s.public_header_files = 'Pod/Classes/**/UIView+PodBundle.h'
+  # s.public_header_files = 'Pod/Classes/**/UIView+PodBundle.h'
   # s.frameworks = 'UIKit', 'MapKit'
     s.dependency 'ReactiveCocoa', '~> 2.5'
     s.dependency 'TTTAttributedLabel'
