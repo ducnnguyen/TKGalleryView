@@ -9,17 +9,20 @@
 #import "UIView+PodBundle.h"
 
 @implementation UIView (PodBundle)
-+ (instancetype)viewFromPodNib {
++ (NSBundle*)podBundle {
     NSBundle *podBundle = [NSBundle bundleForClass:[self.class class]];
     NSURL *bundleURL = [podBundle URLForResource:@"TKGalleryView" withExtension:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
-    NSArray *topLevelObjects = [bundle loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil];
+    return bundle;
+}
+
++ (instancetype)viewFromPodNib {
+    NSArray *topLevelObjects = [[self.class podBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil];
     for (id currentObject in topLevelObjects) {
         if ([currentObject isKindOfClass:[self class]]) {
             return currentObject;
         }
     }
     return nil;
-
 }
 @end

@@ -34,7 +34,7 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  TKGalleryView: 81b4c4b417f2bacbd0900d458ccdfc822594404e
+  TKGalleryView: 66de74ad9912b4def418e6672761427ffa61b82d
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
 PODFILE CHECKSUM: f15639fc174e9de9bb2c4bc9d280a34ed5657cab

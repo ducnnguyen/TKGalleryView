@@ -8,6 +8,8 @@
 
 #import "TKThumbnailView.h"
 #import "TKPhotoThumbnailCell.h"
+#import "UIView+PodBundle.h"
+
 @interface TKThumbnailView()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @end
@@ -15,7 +17,7 @@
 @synthesize footerBackground = _footerBackground;
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"TKPhotoThumbnailCell" bundle:[NSBundle bundleForClass:[TKPhotoThumbnailCell class]]] forCellWithReuseIdentifier:@"TKPhotoThumbnailCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"TKPhotoThumbnailCell" bundle:[TKPhotoThumbnailCell podBundle]] forCellWithReuseIdentifier:@"TKPhotoThumbnailCell"];
 }
 - (UIColor *)footerBackground {
     return _footerBackground != nil ? _footerBackground : [UIColor blackColor];
@@ -49,7 +51,7 @@
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
     if (![[self subviews] count]) {
         TKThumbnailView *loadedView = nil;
-        loadedView = [[[NSBundle bundleForClass:[TKThumbnailView class]] loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
+        loadedView = [TKThumbnailView viewFromPodNib];
         loadedView.frame = self.frame;
         loadedView.autoresizingMask = self.autoresizingMask;
         loadedView.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;

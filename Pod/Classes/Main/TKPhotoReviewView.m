@@ -12,6 +12,7 @@
 #import "TKCaptionView.h"
 #import "TKPhotoReviewView.h"
 #import "ReactiveCocoa.h"
+#import "UIView+PodBundle.h"
 
 @interface TKPhotoReviewView() <UICollectionViewDataSource> {
     BOOL _isShowCaption;
@@ -82,7 +83,7 @@
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
     if (![[self subviews] count]) {
         TKPhotoReviewView *loadedView = nil;
-        loadedView = [[[NSBundle bundleForClass:[TKPhotoReviewView class]] loadNibNamed:@"TKPhotoReviewView" owner:nil options:nil] firstObject];
+        loadedView = [TKPhotoReviewView viewFromPodNib];
         loadedView.frame = self.frame;
         loadedView.autoresizingMask = self.autoresizingMask;
         loadedView.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;

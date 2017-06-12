@@ -10,4 +10,5 @@
 
 @interface UIView (PodBundle)
 + (instancetype)viewFromPodNib;
++ (NSBundle*)podBundle;
 @end

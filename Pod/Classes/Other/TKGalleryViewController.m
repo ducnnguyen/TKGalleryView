@@ -13,6 +13,7 @@
 #import "pop/POP.h"
 #import "ReactiveCocoa.h"
 #import "Masonry.h"
+#import "UIView+PodBundle.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -75,12 +76,9 @@
         make.bottom.mas_equalTo(0);
         make.top.mas_equalTo(0);
     }];
-    NSBundle *podBundle = [NSBundle bundleForClass:[self.class class]];
     
-    NSURL *bundleURL = [podBundle URLForResource:@"TKGalleryView" withExtension:@"bundle"];
-    NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
+    self.footerView = [TKThumbnailView viewFromPodNib];
     
-    self.footerView = [[bundle loadNibNamed:@"TKThumbnailView" owner:nil options:nil] firstObject];
     [self.parentView addSubview:self.footerView];
     [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
@@ -89,7 +87,7 @@
         make.height.mas_equalTo(72);
     }];
     
-    self.contentView = [[[NSBundle bundleForClass:[TKPhotoReviewView class]] loadNibNamed:@"TKPhotoReviewView" owner:nil options:nil] firstObject];
+    self.contentView = [TKPhotoReviewView viewFromPodNib];
     [self.parentView addSubview:self.contentView];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
