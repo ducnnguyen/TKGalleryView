@@ -29,10 +29,10 @@ Tiki App avaiable on AppStore
   s.source           = { :git => 'https://github.com/ducnnguyen/TKGalleryView.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+    s.ios.deployment_target = '8.0'
 
-  s.source_files = 'Pod/Classes/**/*.{h,m}'
-  s.resources = 'Pod/Classes/**/*.nib'
+    s.source_files = 'Pod/Classes/**/*.{h,m}'
+    s.resources = 'Pod/Classes/**/*.{nib}'
     s.resource_bundles = {
         'TKGalleryView' => ['Pod/Assets/*.xcassets'],
     }
