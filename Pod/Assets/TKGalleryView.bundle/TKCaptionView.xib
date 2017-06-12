@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="toC-DP-OQ9" customClass="TKCaptionView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="506"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUn-4C-mBW">
+                    <rect key="frame" x="0.0" y="468" width="375" height="38"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iyy-Lz-uQe">
+                            <rect key="frame" x="16" y="7" width="50" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="Cảm ơn">
+                                <color key="titleColor" red="0.1058823529" green="0.6588235294" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="didClickThanks:" destination="toC-DP-OQ9" eventType="touchUpInside" id="RiX-tK-eLm"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MV5-VY-XeQ">
+                            <rect key="frame" x="90" y="7" width="63" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="Gửi trả lời">
+                                <color key="titleColor" red="0.1058823529" green="0.6588235294" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="didClickComment:" destination="toC-DP-OQ9" eventType="touchUpInside" id="BBG-oT-pg1"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="MV5-VY-XeQ" firstAttribute="leading" secondItem="Iyy-Lz-uQe" secondAttribute="trailing" constant="24" id="LXB-9h-vvW"/>
+                        <constraint firstItem="Iyy-Lz-uQe" firstAttribute="leading" secondItem="GUn-4C-mBW" secondAttribute="leading" constant="16" id="SdA-DO-1eU"/>
+                        <constraint firstItem="MV5-VY-XeQ" firstAttribute="top" secondItem="GUn-4C-mBW" secondAttribute="top" constant="7" id="SyM-06-zIT"/>
+                        <constraint firstAttribute="bottom" secondItem="MV5-VY-XeQ" secondAttribute="bottom" constant="7" id="dpF-P5-xLv"/>
+                        <constraint firstAttribute="height" constant="38" id="lYP-Gw-cTt"/>
+                        <constraint firstAttribute="bottom" secondItem="Iyy-Lz-uQe" secondAttribute="bottom" constant="7" id="nj0-SH-Cjx"/>
+                        <constraint firstItem="Iyy-Lz-uQe" firstAttribute="top" secondItem="GUn-4C-mBW" secondAttribute="top" constant="7" id="sfU-KG-EN0"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SYi-eb-apg">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="468"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="toC-DP-OQ9" id="Uvh-hj-Rwo"/>
+                        <outlet property="delegate" destination="toC-DP-OQ9" id="xII-Wq-vh8"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="GUn-4C-mBW" firstAttribute="top" secondItem="SYi-eb-apg" secondAttribute="bottom" id="DRx-k9-Gis"/>
+                <constraint firstAttribute="bottom" secondItem="GUn-4C-mBW" secondAttribute="bottom" id="H8j-u0-NAR"/>
+                <constraint firstAttribute="trailing" secondItem="SYi-eb-apg" secondAttribute="trailing" id="NXO-zd-dNc"/>
+                <constraint firstItem="GUn-4C-mBW" firstAttribute="leading" secondItem="toC-DP-OQ9" secondAttribute="leading" id="PIR-tu-XlI"/>
+                <constraint firstItem="SYi-eb-apg" firstAttribute="leading" secondItem="toC-DP-OQ9" secondAttribute="leading" id="Qs6-pn-A2q"/>
+                <constraint firstItem="SYi-eb-apg" firstAttribute="top" secondItem="toC-DP-OQ9" secondAttribute="top" id="Tqx-Dk-GFV"/>
+                <constraint firstAttribute="trailing" secondItem="GUn-4C-mBW" secondAttribute="trailing" id="UVO-pV-Acn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnThanks" destination="Iyy-Lz-uQe" id="63w-DP-sHB"/>
+                <outlet property="tableview" destination="SYi-eb-apg" id="2hS-gb-bHg"/>
+            </connections>
+            <point key="canvasLocation" x="58.5" y="278"/>
+        </view>
+    </objects>
+</document>
