@@ -115,6 +115,7 @@
 }
 
 - (void)setDatasource:(id<TKGalleryViewDatasource>)datasource {
+    _datasource = datasource;
     _currentIndex = 0;
     _isShowCaption = NO;
     self.captionView.hidden = !_isShowCaption;

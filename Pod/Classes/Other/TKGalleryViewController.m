@@ -21,8 +21,8 @@
     int _previousModalPresentationStyle;
     BOOL _isdraggingPhoto;
     BOOL _isShowCaption;
-
 }
+
 @property (weak, nonatomic) IBOutlet TKPhotoReviewView *contentView;
 @property (weak, nonatomic) IBOutlet TKThumbnailView *footerView;
 @property (nonatomic,strong)     UIPanGestureRecognizer *panGesture;
@@ -30,7 +30,7 @@
 @property (nonatomic,strong) id dataSourceLive;
 @property (nonatomic) NSInteger indexLib;
 @property (nonatomic,strong) NSArray *arr ;
-@property (nonatomic,strong) UIView *animetionfromView;
+@property (nonatomic,strong) UIView *animatedView;
 @property (nonatomic) CGRect rectFromPresent;
 
 @end
@@ -55,7 +55,7 @@
 
 - (id)initWithAnimationFromView:(UIView *)view showCaption:(BOOL)isShowCaption {
     if (self = [self init]) {
-        _animetionfromView = view;
+        _animatedView = view;
         _isShowCaption = isShowCaption;
         _contentMode = UIViewContentModeScaleAspectFill;
     }
@@ -66,6 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.alpha  = 0;
+    self.contentView.gallery = self;
     [[UIApplication sharedApplication] setStatusBarHidden:YES
                                             withAnimation:UIStatusBarAnimationFade];
     self.modalPresentationStyle = UIModalPresentationCustom;
@@ -77,7 +78,6 @@
         [self performPresentAnimation];
     }
     @weakify(self);
-    //s
     [self.contentView setPhotoReviewDidChange:^(TKPhotoReviewView *view, NSInteger index) {
         @strongify(self);
         self.footerView.currentIndex = index;
@@ -98,7 +98,7 @@
             [self performCloseAnimationWithScrollView:self.contentView.viewIsVisible];
         }
         else {
-            self.animetionfromView.hidden = NO;
+            self.animatedView.hidden = NO;
             [self dismissViewControllerAnimated:YES completion:nil];
         }
 
@@ -156,9 +156,8 @@
 
 - (void)performPresentAnimation {
     self.view.alpha = 0;
-    
-    UIImage *imageFromView = self.scaleImage ? self.scaleImage : [self getImageFromView:self.animetionfromView];
-    CGRect rect = [self.animetionfromView.superview convertRect:self.animetionfromView.frame toView:nil];
+    UIImage *imageFromView = self.scaleImage ? self.scaleImage : [self getImageFromView:self.animatedView];
+    CGRect rect = [self.animatedView.superview convertRect:self.animatedView.frame toView:nil];
     _rectFromPresent = rect;
     UIView *fadeView = [[UIView alloc] initWithFrame:_applicationWindow.bounds];
     fadeView.backgroundColor = self.reviewBackground;
@@ -171,7 +170,7 @@
     resizeableImageView.backgroundColor = [UIColor clearColor];
     [resizeableImageView setContentMode:(self.contentMode)];
     [_applicationWindow addSubview:resizeableImageView];
-    self.animetionfromView.hidden =  YES;
+    self.animatedView.hidden =  YES;
     
     void (^completion)() = ^() {
         self.view.alpha = 1.0f;
@@ -214,8 +213,8 @@
     self.view.hidden = YES;
 
     void (^completion)() = ^() {
-        _animetionfromView.hidden = NO;
-        _animetionfromView = nil;
+        _animatedView.hidden = NO;
+        _animatedView = nil;
         _scaleImage = nil;
         
         [fadeView removeFromSuperview];
@@ -230,7 +229,7 @@
         self.view.backgroundColor = [UIColor clearColor];
     } completion:nil];
     
-    CGRect senderViewOriginalFrame = _animetionfromView.superview ? [_animetionfromView.superview convertRect:_animetionfromView.frame toView:nil] : _rectFromPresent;
+    CGRect senderViewOriginalFrame = _animatedView.superview ? [_animatedView.superview convertRect:_animatedView.frame toView:nil] : _rectFromPresent;
     [self animateView:resizableImageView
               toFrame:senderViewOriginalFrame
            completion:completion];
@@ -381,7 +380,7 @@
     if ([gesture state] == UIGestureRecognizerStateBegan) {
         firstX = [tranlasteView center].x;
         firstY = [tranlasteView center].y;
-        self.animetionfromView.hidden = (self.currentIndex == self.indexLib);
+        self.animatedView.hidden = (self.currentIndex == self.indexLib);
 
         [self setControlsHidden:YES animated:YES];
         _isdraggingPhoto = YES;

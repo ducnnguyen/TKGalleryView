@@ -44,4 +44,5 @@ Tiki App avaiable on AppStore
     s.dependency 'HCSStarRatingView'
     s.dependency 'SDWebImage'
     s.dependency 'pop'
+    s.dependency 'Masonry'
 end

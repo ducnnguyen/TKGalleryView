@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12121"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TKGalleryViewController">
             <connections>
-                <outlet property="contentView" destination="zLP-m0-WS0" id="r3a-GX-EHJ"/>
-                <outlet property="footerView" destination="IjG-MR-AQ5" id="liT-Zd-kLP"/>
-                <outlet property="parentView" destination="CTc-eT-bcU" id="a1e-uf-lC8"/>
+                <outlet property="contentView" destination="zLP-m0-WS0" id="Psg-7e-blD"/>
+                <outlet property="footerView" destination="IjG-MR-AQ5" id="Wpc-7b-25v"/>
+                <outlet property="parentView" destination="CTc-eT-bcU" id="Cfx-fY-4wp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

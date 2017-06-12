@@ -12,7 +12,7 @@
 #import "TKDatasource.h"
 #import <TKGalleryView/TKGalleryView.h>
 
-@interface TKViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface TKViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, TKGalleryViewDelegate, TKGalleryViewDatasource>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *datasources;
 
@@ -65,8 +65,19 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    TKGalleryViewController *galleryView = [[TKGalleryViewController alloc] init];
-    galleryView.datasource = self;
-    galleryView.delegate = self;
+    TKCollectionViewCell *cell = (TKCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    TKGalleryViewController *reviewDetail = [[TKGalleryViewController alloc] initWithAnimationFromView:cell];
+    reviewDetail.view.alpha = 0;
+    UIImage *image = cell.imageView.image ;
+    reviewDetail.scaleImage = image;
+    reviewDetail.datasource = self;
+    [self presentViewController:reviewDetail animated:NO completion:nil];
+}
+
+- (NSInteger)numberOfPhotos:(TKGalleryViewController*)gallery {
+    return self.datasources.count;
+}
+- (id<TKReviewModalProtocol, TKCaptionProtocol>)gallery:(TKGalleryViewController*)gallery itemAtIndex:(NSInteger)index {
+    return self.datasources[index];
 }
 @end
