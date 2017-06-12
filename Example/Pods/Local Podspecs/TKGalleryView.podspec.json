@@ -21,7 +21,7 @@
   "source_files": "Pod/Classes/**/*",
   "resource_bundles": {
     "TKGalleryView": [
-      "Pod/Assets/*.xcassets"
+      "Pod/Classes/*.nib"
     ]
   },
   "dependencies": {
