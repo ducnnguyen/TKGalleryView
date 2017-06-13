@@ -60,6 +60,35 @@
         _animatedView = view;
         _isShowCaption = isShowCaption;
         _contentMode = UIViewContentModeScaleAspectFill;
+        self.parentView =  [[UIView alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:self.parentView];
+        [self.parentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.right.mas_equalTo(0);
+            make.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(0);
+        }];
+        
+        self.footerView = [TKThumbnailView viewFromPodNib];
+        
+        [self.parentView addSubview:self.footerView];
+        [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.right.mas_equalTo(0);
+            make.bottom.mas_equalTo(0);
+            make.height.mas_equalTo(72);
+        }];
+        
+        self.contentView = [TKPhotoReviewView viewFromPodNib];
+        [self.parentView addSubview:self.contentView];
+        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.right.mas_equalTo(0);
+            make.top.mas_equalTo(0);
+            make.bottom.equalTo(self.footerView.mas_top).with.offset(0);
+        }];
+        
+        self.contentView.gallery = self;
     }
     return self;
 }
@@ -67,36 +96,8 @@
 #pragma mark-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.alpha  = 0;
-    self.parentView =  [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.parentView];
-    [self.parentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-        make.top.mas_equalTo(0);
-    }];
+    self.view.alpha  = 1;
     
-    self.footerView = [TKThumbnailView viewFromPodNib];
-    
-    [self.parentView addSubview:self.footerView];
-    [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(72);
-    }];
-    
-    self.contentView = [TKPhotoReviewView viewFromPodNib];
-    [self.parentView addSubview:self.contentView];
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.top.mas_equalTo(0);
-        make.bottom.equalTo(self.footerView.mas_top).with.offset(0);
-    }];
-    
-    self.contentView.gallery = self;
     [[UIApplication sharedApplication] setStatusBarHidden:YES
                                             withAnimation:UIStatusBarAnimationFade];
     self.modalPresentationStyle = UIModalPresentationCustom;
@@ -185,7 +186,7 @@
 
 
 - (void)performPresentAnimation {
-    self.view.alpha = 0;
+    self.view.alpha = 1;
     UIImage *imageFromView = self.scaleImage ? self.scaleImage : [self getImageFromView:self.animatedView];
     CGRect rect = [self.animatedView.superview convertRect:self.animatedView.frame toView:nil];
     _rectFromPresent = rect;
@@ -326,8 +327,7 @@
     [animation setToValue:[NSValue valueWithCGRect:frame]];
     [view pop_addAnimation:animation forKey:nil];
     
-    if (completion)
-    {
+    if (completion) {
         [animation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
             completion();
         }];

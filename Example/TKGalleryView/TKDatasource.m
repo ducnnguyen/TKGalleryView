@@ -20,5 +20,30 @@
 - (NSString *) tk_fullPathImage {
     return self.url;
 }
+- (NSInteger)numberOfThanks {
+    return 0;
+}
+- (NSInteger) rating {
+    return 5;
+}
+- (NSString*) reviewer {
+    return @"Duc Nguyen";
+}
+- (NSString*) titleCaption {
+    return @"Nguyen Ngoc Duc";
+}
+- (NSString*) contentReview {
+    return @"Nguyen Ngoc Duc Da nhan xet nhan xet nay";
+}
+- (NSString*) dateReview {
+    return @"Yesteday";
+}
+- (BOOL)isLike {
+    return YES;
+}
+- (BOOL)isDidBuy {
+    return NO;
+}
+
 
 @end

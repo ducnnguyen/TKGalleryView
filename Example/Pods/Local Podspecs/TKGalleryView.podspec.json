@@ -24,7 +24,6 @@
       "Pod/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png}"
     ]
   },
-  "public_header_files": "Pod/Classes/**/UIView+PodBundle.h",
   "dependencies": {
     "ReactiveCocoa": [
       "~> 2.5"
