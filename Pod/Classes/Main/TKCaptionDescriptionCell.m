@@ -33,21 +33,16 @@
     [self.captionLable addGestureRecognizer:tapper];
 }
 - (void)expand:(UITapGestureRecognizer *)tap {
-
     _isExpand = !_isExpand;
     float totalHeight  = 50;
     if (_isExpand) {
         self.captionLable.attributedText  = [[NSMutableAttributedString alloc] initWithString:_textCaption attributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
         totalHeight = [_textCaption boundingRectWithSize:CGSizeMake(self.captionLable.frame.size.width - 1 , CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:self.captionLable.font} context:nil].size.height;
-
     }
-
 
     if (self.didExpand) {
         self.didExpand(_isExpand,totalHeight);
     }
-    
-
 }
 
 - (NSDictionary *)defaultAttributeText {

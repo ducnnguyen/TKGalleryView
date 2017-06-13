@@ -23,7 +23,7 @@
 @end
 
 @protocol TKGalleryViewDelegate <NSObject>
-
+@optional
 - (void)photo:(TKGalleryViewController *)photo didClickThanksAtIndex:(NSInteger)index;
 - (void)photo:(TKGalleryViewController *)photo didClickReplyAtIndex:(NSInteger)index;
 

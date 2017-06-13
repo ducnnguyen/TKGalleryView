@@ -18,6 +18,4 @@
 @property (nonatomic, strong) UIColor *footerBackground;
 @property (nonatomic, copy) void (^thumbnailDidChange)(TKThumbnailView *view,NSInteger index);
 
-- (void)setListThumbnail:(NSArray *)listThumbnail atIndex:(NSInteger)index;
-
 @end

@@ -161,7 +161,6 @@
     NSIndexPath *indexPath = [self indexPathForCollectionView:self.collectionView Point:currentPoint];
     _currentIndex = indexPath.row;
     [_captionView setShowCaption:[self.datasource gallery:self.gallery itemAtIndex:_currentIndex]];
-
     if (self.photoReviewDidChange) {
         self.photoReviewDidChange(self,self.currentIndex);
     }
