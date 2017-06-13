@@ -80,40 +80,6 @@
     [self.btnClose setImage:[[UIImage imageNamed:@"Close"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:(UIControlStateNormal)];
 
 }
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
-    if (![[self subviews] count]) {
-        TKPhotoReviewView *loadedView = nil;
-        loadedView = [TKPhotoReviewView viewFromPodNib];
-        loadedView.frame = self.frame;
-        loadedView.autoresizingMask = self.autoresizingMask;
-        loadedView.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;
-        
-        for (NSLayoutConstraint *constraint in self.constraints)
-        {
-            id firstItem = constraint.firstItem;
-            if (firstItem == self)
-            {
-                firstItem = loadedView;
-            }
-            id secondItem = constraint.secondItem;
-            if (secondItem == self)
-            {
-                secondItem = loadedView;
-            }
-            [loadedView addConstraint:
-             [NSLayoutConstraint constraintWithItem:firstItem
-                                          attribute:constraint.firstAttribute
-                                          relatedBy:constraint.relation
-                                             toItem:secondItem
-                                          attribute:constraint.secondAttribute
-                                         multiplier:constraint.multiplier
-                                           constant:constraint.constant]];
-        }
-        
-        return loadedView;
-    }
-    return self;
-}
 
 - (void)setDatasource:(id<TKGalleryViewDatasource>)datasource {
     _datasource = datasource;
@@ -179,7 +145,8 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return self.frame.size;
+    CGRect frame = [UIScreen mainScreen].bounds;
+    return CGSizeMake(frame.size.width, frame.size.height - 72);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -193,8 +160,8 @@
 }
 
 #pragma mark- ScrollView Delegate
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGPoint currentPoint = scrollView.contentOffset;
     NSIndexPath *indexPath = [self indexPathForCollectionView:self.collectionView Point:currentPoint];
     _currentIndex = indexPath.row;
@@ -203,12 +170,11 @@
     if (self.photoReviewDidChange) {
         self.photoReviewDidChange(self,self.currentIndex);
     }
-    
 }
+
 #pragma mark-
 - (NSIndexPath *)indexPathForCollectionView:(UICollectionView *)collectionView Point:(CGPoint)point {
     NSArray *listAttribute =  [collectionView.collectionViewLayout layoutAttributesForElementsInRect:collectionView.bounds];
-    
     for (UICollectionViewLayoutAttributes *attribute in listAttribute) {
         if (attribute.representedElementKind == nil  && CGRectContainsPoint(attribute.frame, point)) {
             //Caculator source rect
@@ -220,6 +186,7 @@
     }
     return nil;
 }
+
 - (IBAction)didClickBtnClose:(id)sender {
     if (self.didClose) {
         self.didClose();
@@ -228,7 +195,6 @@
 
 
 - (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated {
-    // Hide/show bars
     [UIView animateWithDuration:(animated ? 0.3 : 0) animations:^(void) {
         CGFloat alpha = hidden ? 0 : 1;
         self.captionView.alpha = alpha;
@@ -236,7 +202,7 @@
         self.backgroundView.alpha = alpha;
         self.parentCaptionView.alpha = alpha;
         self.backgroundAnimationView.alpha = alpha;
-    } completion:^(BOOL finished) {}];
+    } completion:nil];
 }
 
 - (BOOL)isHiddenCaption {

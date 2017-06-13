@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface TKCaptionDescriptionCell : UITableViewCell
-@property (nonatomic,strong)void(^didExpand)(BOOL isExpand , float newHeight);
+@property (nonatomic, copy) void(^didExpand)(BOOL isExpand , float newHeight);
 @property (nonatomic) BOOL expand;
+
 - (void)setCaption:(NSString *)text;
--(int)numberOfLinesNeeded:(NSString *) s;
+- (int)numberOfLinesNeeded:(NSString *) s;
 - (void)setCaption:(NSString *)text shouldExpand:(BOOL)isExpand;
 - (CGFloat)heightForFont:(UIFont *)font;
+
 @end

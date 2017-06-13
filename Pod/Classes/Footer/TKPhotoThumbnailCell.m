@@ -18,8 +18,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
+
 - (void)setPhoto:(id<TKReviewModalProtocol>)photoReview {
-    
     [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:[photoReview tk_fullPathImage]] placeholderImage:[UIImage imageNamed:@"place_holder"]];
 
 }

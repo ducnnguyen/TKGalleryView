@@ -40,28 +40,36 @@
 @implementation TKGalleryViewController
 @synthesize reviewBackground  = _reviewBackground;
 
-- (id)init {
+- (instancetype) init {
     self = [super init];
     if (self) {
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         self.modalPresentationCapturesStatusBarAppearance = YES;
-        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     }
     return self;
 }
 
-- (id)initWithAnimationFromView:(UIView *)view {
+- (instancetype)initWithAnimationFromView:(UIView *)view {
     return [self initWithAnimationFromView:view showCaption:YES];
 }
 
-- (id)initWithAnimationFromView:(UIView *)view showCaption:(BOOL)isShowCaption {
+- (instancetype)initWithAnimationFromView:(UIView *)view showCaption:(BOOL)isShowCaption {
     if (self = [self init]) {
         _animatedView = view;
         _isShowCaption = isShowCaption;
         _contentMode = UIViewContentModeScaleAspectFill;
+        
         self.parentView =  [[UIView alloc] initWithFrame:self.view.bounds];
         [self.view addSubview:self.parentView];
+        
+        self.footerView = [TKThumbnailView viewFromPodNib];
+        [self.parentView addSubview:self.footerView];
+        
+        self.contentView = [TKPhotoReviewView viewFromPodNib];
+        [self.parentView addSubview:self.contentView];
+        
+        // Layout subview
         [self.parentView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(0);
             make.right.mas_equalTo(0);
@@ -69,9 +77,6 @@
             make.top.mas_equalTo(0);
         }];
         
-        self.footerView = [TKThumbnailView viewFromPodNib];
-        
-        [self.parentView addSubview:self.footerView];
         [self.footerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(0);
             make.right.mas_equalTo(0);
@@ -79,16 +84,16 @@
             make.height.mas_equalTo(72);
         }];
         
-        self.contentView = [TKPhotoReviewView viewFromPodNib];
-        [self.parentView addSubview:self.contentView];
         [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(0);
             make.right.mas_equalTo(0);
             make.top.mas_equalTo(0);
             make.bottom.equalTo(self.footerView.mas_top).with.offset(0);
         }];
+
         
         self.contentView.gallery = self;
+        self.footerView.gallery = self;
     }
     return self;
 }
@@ -97,7 +102,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.alpha  = 1;
-    
     [[UIApplication sharedApplication] setStatusBarHidden:YES
                                             withAnimation:UIStatusBarAnimationFade];
     self.modalPresentationStyle = UIModalPresentationCustom;
@@ -105,9 +109,12 @@
     self.modalPresentationCapturesStatusBarAppearance = YES;
     self.view.backgroundColor = [UIColor blackColor];
     _applicationWindow.backgroundColor = [UIColor greenColor];
+    
+    
     if (self.scaleImage && self.currentIndex == self.indexLib) {
         [self performPresentAnimation];
     }
+    
     @weakify(self);
     [self.contentView setPhotoReviewDidChange:^(TKPhotoReviewView *view, NSInteger index) {
         @strongify(self);
@@ -135,6 +142,13 @@
 
     }];
     
+    _applicationWindow = [[[UIApplication sharedApplication] delegate] window];
+    _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+    [_panGesture setMinimumNumberOfTouches:1];
+    [_panGesture setMaximumNumberOfTouches:1];
+    [self.view addGestureRecognizer:_panGesture];
+    
+    
     /*
     [self.contentView setDidClickThanks:^(NSInteger index, PhotoReview *photoReview) {
     }];
@@ -145,11 +159,7 @@
         }
     }];
     
-    _applicationWindow = [[[UIApplication sharedApplication] delegate] window];
-    _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
-    [_panGesture setMinimumNumberOfTouches:1];
-    [_panGesture setMaximumNumberOfTouches:1];
-    [self.view addGestureRecognizer:_panGesture];
+    
     if (self.dataSourceLive) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.contentView setReviews:self.dataSourceLive withStartAtIndex:self.indexLib isShowCaption:_isShowCaption];
@@ -161,7 +171,8 @@
     
     self.footerView.footerBackground = self.reviewBackground;
     self.contentView.contentBackground = self.reviewBackground;
-    self.view.backgroundColor =self.reviewBackground;
+    
+    self.view.backgroundColor = self.reviewBackground;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSigTap) name:@"TKPhotoSignTap" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDoubleTap) name:@"TKPhotoDoubleTap" object:nil];
     
@@ -182,8 +193,6 @@
 - (UIColor *)reviewBackground {
     return _reviewBackground ? _reviewBackground : [UIColor blackColor];
 }
-
-
 
 - (void)performPresentAnimation {
     self.view.alpha = 1;
@@ -209,6 +218,7 @@
         [fadeView removeFromSuperview];
         [resizeableImageView removeFromSuperview];
     };
+    
     CGRect finalImageViewFrame = [self animationFrameForImage:imageFromView presenting:YES scrollView:nil];
 
     
@@ -220,7 +230,6 @@
     }];
     
     [self animateView:resizeableImageView toFrame:finalImageViewFrame completion:completion];
-    
 }
 
 - (void)performCloseAnimationWithScrollView:(TKPhotoCollectionViewCell *)scrollView {
@@ -314,16 +323,18 @@
 - (void)setDelegate:(id<TKGalleryViewDelegate>)delegate {
     self.contentView.delegate = delegate;
 }
+
 - (void)setDatasource:(id<TKGalleryViewDatasource>)datasource {
     self.contentView.datasource = datasource;
+    self.footerView.datasource = datasource;
 }
+
 #pragma mark - pop Animation
 
 - (void)animateView:(UIView *)view toFrame:(CGRect)frame completion:(void (^)(void))completion {
     POPSpringAnimation *animation = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
     [animation setSpringBounciness:6];
     [animation setDynamicsMass:1];
-
     [animation setToValue:[NSValue valueWithCGRect:frame]];
     [view pop_addAnimation:animation forKey:nil];
     
@@ -340,8 +351,7 @@
     CGFloat currentScale = cell.currentScale;
     if (currentScale  < [cell maxScale]) {
         [self setControlsHiddenNotHiddenThumb:self.contentView.isHiddenCaption animated:YES];
-    }
-    else {
+    } else {
         [self setControlsHiddenNotHiddenThumb:NO animated:YES];
         
     }
@@ -352,22 +362,17 @@
     CGFloat currentScale = cell.currentScale;
     if (currentScale  < [cell maxScale]) {
         [self setControlsHiddenNotHiddenThumb:YES animated:YES];
-    }
-    else {
+    } else {
         [self setControlsHiddenNotHiddenThumb:NO animated:YES];
-
     }
-
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void)setDataSource:(id)listDataSouce {
     [self setDataSource:listDataSouce atIndex:0];
 }
@@ -388,6 +393,7 @@
     
     return topviewController;
 }
+
 #pragma mark - Pan Gesture
 - (UIImage *)getImageFromView :(UIView *)view {
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 2);
@@ -411,7 +417,6 @@
         firstX = [tranlasteView center].x;
         firstY = [tranlasteView center].y;
         self.animatedView.hidden = (self.currentIndex == self.indexLib);
-
         [self setControlsHidden:YES animated:YES];
         _isdraggingPhoto = YES;
         [self setNeedsStatusBarAppearanceUpdate];
@@ -455,9 +460,7 @@
             [UIView commitAnimations];
             [self performSelector:@selector(dissmissPhotoController) withObject:nil afterDelay:animationDuration];
             
-        }
-        else // Continue Showing View
-        {
+        } else  {
             _isdraggingPhoto = NO;
             [self setNeedsStatusBarAppearanceUpdate];
             
@@ -477,10 +480,10 @@
             [tranlasteView setCenter:CGPointMake(finalX, finalY)];
             [UIView commitAnimations];
         }
-
     }
 
 }
+
 - (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated {
     [self.contentView setControlsHidden:hidden animated:animated];
     [UIView animateWithDuration:0.33 animations:^{
@@ -497,9 +500,10 @@
             [self.footerView setAlpha:alpha];
         } completion:nil];
     }
-   }
+}
+
 - (void)dissmissPhotoController {
     [self dismissViewControllerAnimated:YES completion:nil];
-
 }
+
 @end

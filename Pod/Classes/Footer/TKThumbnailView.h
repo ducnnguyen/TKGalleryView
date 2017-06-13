@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol TKGalleryViewDatasource;
+@class TKGalleryViewController;
 @interface TKThumbnailView : UIView
-@property (nonatomic,strong) NSArray *listThumbnail;
+
+@property (nonatomic, weak) id<TKGalleryViewDatasource> datasource;
+@property (nonatomic, weak) TKGalleryViewController *gallery;
+
 @property (nonatomic) NSInteger currentIndex;
-@property (nonatomic,strong) UIColor *footerBackground;
-@property (nonatomic,copy)void (^thumbnailDidChange)(TKThumbnailView *view,NSInteger index);
+@property (nonatomic, strong) UIColor *footerBackground;
+@property (nonatomic, copy) void (^thumbnailDidChange)(TKThumbnailView *view,NSInteger index);
+
 - (void)setListThumbnail:(NSArray *)listThumbnail atIndex:(NSInteger)index;
+
 @end
