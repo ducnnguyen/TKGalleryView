@@ -17,11 +17,12 @@
 @property (nonatomic,strong) UIImage *scaleImage;
 @property (nonatomic,strong) UIColor *reviewBackground;
 @property (nonatomic) UIViewContentMode contentMode;
+@property (nonatomic, assign) BOOL isShowCaption;
 
 - (instancetype)initWithAnimationFromView:(UIView *)view;
 - (instancetype)initWithAnimationFromView:(UIView *)view showCaption:(BOOL)isShowCaption;
 
-- (void)setDataSource:(id)listDataSouce atIndex:(NSInteger)index;
+
 
 @property (nonatomic) NSInteger currentIndex;
 

@@ -22,7 +22,6 @@
     UIViewController *_applicationTopViewController;
     int _previousModalPresentationStyle;
     BOOL _isdraggingPhoto;
-    BOOL _isShowCaption;
 }
 
 @property (strong, nonatomic) TKPhotoReviewView *contentView;
@@ -31,7 +30,7 @@
 @property (strong, nonatomic) UIView *parentView;
 @property (nonatomic, strong) id dataSourceLive;
 @property (nonatomic) NSInteger indexLib;
-@property (nonatomic, strong) NSArray *arr ;
+
 @property (nonatomic, strong) UIView *animatedView;
 @property (nonatomic) CGRect rectFromPresent;
 
@@ -67,6 +66,30 @@
         [self.parentView addSubview:self.footerView];
         
         self.contentView = [TKPhotoReviewView viewFromPodNib];
+        @weakify(self)
+        [self.contentView setDidClose:^{
+            @strongify(self);
+            if (self.scaleImage && self.currentIndex == self.indexLib ) {
+                [self performCloseAnimationWithScrollView:self.contentView.viewIsVisible];
+            } else {
+                self.animatedView.hidden = NO;
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            
+        }];
+        [self.contentView setPhotoReviewDidChange:^(TKPhotoReviewView *view, NSInteger index) {
+            @strongify(self);
+            self.footerView.currentIndex = index;
+            self.currentIndex = index;
+        }];
+
+        [self.footerView setThumbnailDidChange:^(TKThumbnailView *view, NSInteger index) {
+            @strongify(self);
+            self.contentView.currentIndex = index;
+            self.currentIndex = index;
+        }];
+
+        
         [self.parentView addSubview:self.contentView];
         
         // Layout subview
@@ -115,32 +138,9 @@
         [self performPresentAnimation];
     }
     
-    @weakify(self);
-    [self.contentView setPhotoReviewDidChange:^(TKPhotoReviewView *view, NSInteger index) {
-        @strongify(self);
-        self.footerView.currentIndex = index;
-        self.currentIndex = index;
-    }];
     
     
-    [self.footerView setThumbnailDidChange:^(TKThumbnailView *view, NSInteger index) {
-        @strongify(self);
-        self.contentView.currentIndex = index;
-        self.currentIndex = index;
-    }];
     
-    
-    [self.contentView setDidClose:^{
-        @strongify(self);
-        if (self.scaleImage && self.currentIndex == self.indexLib ) {
-            [self performCloseAnimationWithScrollView:self.contentView.viewIsVisible];
-        }
-        else {
-            self.animatedView.hidden = NO;
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-
-    }];
     
     _applicationWindow = [[[UIApplication sharedApplication] delegate] window];
     _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
@@ -233,11 +233,8 @@
 }
 
 - (void)performCloseAnimationWithScrollView:(TKPhotoCollectionViewCell *)scrollView {
-    
     float fadeAlpha = 1 - fabs(scrollView.frame.origin.y)/scrollView.frame.size.height;
-    
     UIImage *imageFromView = self.scaleImage;
-    
     UIView *fadeView = [[UIView alloc] initWithFrame:_applicationWindow.bounds];
     fadeView.backgroundColor = [UIColor clearColor];
     fadeView.alpha = fadeAlpha;
@@ -251,7 +248,6 @@
     resizableImageView.clipsToBounds = YES;
     [_applicationWindow addSubview:resizableImageView];
     self.view.hidden = YES;
-
     void (^completion)() = ^() {
         _animatedView.hidden = NO;
         _animatedView = nil;
@@ -277,8 +273,7 @@
 
 - (void)dismissPhotoBrowserAnimated:(BOOL)animated {
     self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
-      [self dismissViewControllerAnimated:animated completion:^{
+        [self dismissViewControllerAnimated:animated completion:^{
     }];
 }
 
@@ -304,8 +299,7 @@
     CGFloat aspect = imageSize.width / imageSize.height;
     if (maxWidth / aspect <= maxHeight) {
         animationFrame.size = CGSizeMake(maxWidth, maxWidth / aspect);
-    }
-    else {
+    } else {
         animationFrame.size = CGSizeMake(maxHeight * aspect, maxHeight);
     }
     

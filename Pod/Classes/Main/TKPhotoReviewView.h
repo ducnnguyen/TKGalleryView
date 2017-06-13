@@ -29,4 +29,5 @@
 
 - (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated;
 - (TKPhotoCollectionViewCell *)viewIsVisible;
+
 @end

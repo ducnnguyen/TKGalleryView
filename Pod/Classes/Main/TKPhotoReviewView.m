@@ -15,7 +15,7 @@
 #import "UIView+PodBundle.h"
 
 @interface TKPhotoReviewView() <UICollectionViewDataSource> {
-    BOOL _isShowCaption;
+
 }
 @property (weak, nonatomic) IBOutlet TKCaptionView *captionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -46,16 +46,13 @@
             [UIView animateWithDuration:0.33 animations:^{
                 self.heightBackgroudContrain.constant = self.frame.size.height;
                 [self.backgroundAnimationView setAlpha:1];
-
                 float height = self.frame.size.height - (newHeigh + 60 );
                 height = MAX(60, height);
                 [tableview setContentInset:(UIEdgeInsetsMake(height, 0, 0, 0))];
-                        [self layoutIfNeeded];
-
+                [self layoutIfNeeded];
             }];
         } else {
             [self layoutIfNeeded];
-
             [UIView animateWithDuration:0.33 delay:0 options:(UIViewAnimationOptionCurveEaseIn) animations:^{
                 [self.backgroundAnimationView setAlpha:0];
                 self.heightBackgroudContrain.constant = 115;
@@ -76,19 +73,17 @@
 }
 - (void)setBtnTintColor:(UIColor *)btnTintColor {
     self.btnClose.tintColor = btnTintColor;
-    
     [self.btnClose setImage:[[UIImage imageNamed:@"Close"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:(UIControlStateNormal)];
-
 }
 
 - (void)setDatasource:(id<TKGalleryViewDatasource>)datasource {
     _datasource = datasource;
     _currentIndex = 0;
-    _isShowCaption = NO;
-    self.captionView.hidden = !_isShowCaption;
-    self.backgroundView.hidden = !_isShowCaption;
-    self.parentCaptionView.hidden = !_isShowCaption;
-    if (_isShowCaption) {
+//    self.gallery.isShowCaption = NO;
+    self.captionView.hidden = !self.gallery.isShowCaption;
+    self.backgroundView.hidden = !self.gallery.isShowCaption;
+    self.parentCaptionView.hidden = !self.gallery.isShowCaption;
+    if (self.gallery.isShowCaption) {
         [_captionView setShowCaption:[self.datasource gallery:self.gallery itemAtIndex:_currentIndex]];
     }
     [self.collectionView setAlpha:0];
@@ -104,7 +99,7 @@
 - (void)setCurrentIndex:(NSInteger)currentIndex {
     if (_currentIndex != currentIndex) {
         _currentIndex = currentIndex;
-        if (_isShowCaption) {
+        if (self.gallery.isShowCaption) {
             [_captionView setShowCaption:[self.datasource gallery:self.gallery itemAtIndex:_currentIndex]];
         }
         [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:(UICollectionViewScrollPositionNone) animated:NO];
