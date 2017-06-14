@@ -32,7 +32,6 @@
 @implementation TKCaptionView
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
     _heightDescrption = kDefaultHeightTableCell;
     [self.labelStatusBuy.layer setBorderWidth:1];
     [self.labelStatusBuy.layer setBorderColor:[UIColor colorWithRed:251/255.f green:130/255.f blue:39/255.f alpha:1].CGColor];
@@ -47,15 +46,13 @@
     _heightDescrption = kDefaultHeightTableCell;
     if (self.didExpand) {
         self.didExpand(NO,kDefaultHeightTableCell,self.tableview);
-        
     }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         TKCaptionDescriptionCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         [cell setCaption:[self.captionObj contentReview] shouldExpand:NO] ;
         [self.tableview reloadData];
-
     });
-
 }
 
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
@@ -115,7 +112,7 @@
     [self.tableview reloadData];
     NSString *title = @"Cảm ơn";
     if ([caption numberOfThanks] > 0) {
-        title = [NSString stringWithFormat:@"%lu Cảm ơn",[caption numberOfThanks]];
+        title = [NSString stringWithFormat:@"%@ Cảm ơn",[@([caption numberOfThanks]) stringValue]];
     }
     [self.btnThanks setTitle:title forState:UIControlStateNormal];
 }
