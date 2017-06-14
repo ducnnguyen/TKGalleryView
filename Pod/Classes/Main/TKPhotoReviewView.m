@@ -13,11 +13,12 @@
 #import "TKPhotoReviewView.h"
 #import "ReactiveCocoa.h"
 #import "UIView+PodBundle.h"
+#import "Masonry.h"
 
 @interface TKPhotoReviewView() <UICollectionViewDataSource> {
 
 }
-@property (weak, nonatomic) IBOutlet TKCaptionView *captionView;
+@property (strong, nonatomic) TKCaptionView *captionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *backgroundAnimationView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *heightCaptionContrains;
@@ -29,7 +30,42 @@
 @property (weak, nonatomic) IBOutlet UIView *parentCaptionView;
 
 @end
+
 @implementation TKPhotoReviewView
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (TKCaptionView*)captionView {
+    if (_captionView == nil) {
+        _captionView = [TKCaptionView viewFromPodNib];
+        [self.parentCaptionView addSubview:_captionView];
+        [_captionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.right.mas_equalTo(0);
+            make.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(0);
+        }];
+        @weakify(self)
+        [_captionView setDidReply:^{
+            @strongify(self)
+            if (self.didReply) {
+                self.didReply();
+            }
+        }];
+        [_captionView setDidClickThanks:^{
+            @strongify(self)
+            if (self.didClickThanks) {
+                self.didClickThanks();
+            }
+        }];
+    }
+    return _captionView;
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
@@ -67,9 +103,7 @@
 
         }
     }];
-    
     self.backgroundColor = self.contentBackground;
-    
 }
 - (void)setBtnTintColor:(UIColor *)btnTintColor {
     self.btnClose.tintColor = btnTintColor;

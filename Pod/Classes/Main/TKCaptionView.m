@@ -55,42 +55,6 @@
     });
 }
 
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
-    
-    if (![[self subviews] count]) {
-        TKCaptionView *loadedView = nil;
-        loadedView = [TKCaptionView viewFromPodNib];
-        loadedView.frame = self.frame;
-        loadedView.autoresizingMask = self.autoresizingMask;
-        loadedView.translatesAutoresizingMaskIntoConstraints = self.translatesAutoresizingMaskIntoConstraints;
-        loadedView.clipsToBounds = NO;
-        for (NSLayoutConstraint *constraint in self.constraints)
-        {
-            id firstItem = constraint.firstItem;
-            if (firstItem == self)
-            {
-                firstItem = loadedView;
-            }
-            id secondItem = constraint.secondItem;
-            if (secondItem == self)
-            {
-                secondItem = loadedView;
-            }
-            [loadedView addConstraint:
-             [NSLayoutConstraint constraintWithItem:firstItem
-                                          attribute:constraint.firstAttribute
-                                          relatedBy:constraint.relation
-                                             toItem:secondItem
-                                          attribute:constraint.secondAttribute
-                                         multiplier:constraint.multiplier
-                                           constant:constraint.constant]];
-        }
-        
-        return loadedView;
-    }
-    return self;
-}
-
 - (IBAction)showFullCaption:(id)sender {
     if (self.didShowFullCaption) {
         self.didShowFullCaption(self.contentString);

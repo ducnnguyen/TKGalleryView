@@ -125,11 +125,9 @@
     CGFloat maxDoubleTapZoomScale = 4.0 * minScale;
     if ([UIScreen instancesRespondToSelector:@selector(scale)]) {
         maxDoubleTapZoomScale = maxDoubleTapZoomScale / [[UIScreen mainScreen] scale];
-        
         if (maxDoubleTapZoomScale < minScale) {
             maxDoubleTapZoomScale = minScale * 2;
-        }
-        
+        }        
     }
 
     //Set
@@ -163,26 +161,16 @@
     }
     
     // Center
-    if (!CGRectEqualToRect(self.photoImageView.frame, frameToCenter))
+    if (!CGRectEqualToRect(self.photoImageView.frame, frameToCenter)) {
         self.photoImageView.frame = frameToCenter;
+    }
 
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    
     return self.photoImageView;
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
@@ -194,11 +182,8 @@
 - (void)handleDoubleTap:(CGPoint)touchPoint {
     if (self.zoomScale == self.maximumZoomScale) {
         [self setZoomScale:self.minimumZoomScale animated:YES];
-    }
-    else {
-        
+    } else {
         [self zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
-
     }
 }
 
@@ -211,9 +196,7 @@
 #pragma mark- Delegate
 - (void)imageView:(UIImageView *)imageView doubleTapDetected:(UITouch *)touch {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TKPhotoDoubleTap" object:self];
-
     [self handleDoubleTap:[touch locationInView:imageView]];
-
 }
 
 - (void)imageView:(UIImageView *)imageView singleTapDetected:(UITouch *)touch {
@@ -224,9 +207,8 @@
 - (void)view:(UIView *)view doubleTapDetected:(UITouch *)touch {
     [self handleDoubleTap:[touch locationInView:view]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TKPhotoDoubleTap" object:self];
-
-
 }
+
 - (void)view:(UIView *)view singleTapDetected:(UITouch *)touch {
     [self handleSignleTap:[touch locationInView:view]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TKPhotoSignTap" object:self];

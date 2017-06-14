@@ -75,8 +75,23 @@
                 self.animatedView.hidden = NO;
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
+        }];
+        
+        [self.contentView setDidClickThanks:^{
+            @strongify(self)
+            if (self.delegate && [self.delegate respondsToSelector:@selector(gallery:didClickThanksAtIndex:)]   ) {
+                [self.delegate gallery:self didClickReplyAtIndex:self.currentIndex];
+            }
             
         }];
+        [self.contentView setDidReply:^{
+            @strongify(self);
+            if (self.delegate && [self.delegate respondsToSelector:@selector(gallery:didClickReplyAtIndex:)]) {
+                [self.delegate gallery:self didClickReplyAtIndex:self.currentIndex];
+            }
+        }];
+        
+        
         [self.contentView setPhotoReviewDidChange:^(TKPhotoReviewView *view, NSInteger index) {
             @strongify(self);
             self.footerView.currentIndex = index;
@@ -148,31 +163,11 @@
     [_panGesture setMaximumNumberOfTouches:1];
     [self.view addGestureRecognizer:_panGesture];
     
-    
-    /*
-    [self.contentView setDidClickThanks:^(NSInteger index, PhotoReview *photoReview) {
-    }];
-    [self.contentView setDidReply:^(NSInteger index, PhotoReview *photoReview) {
-        @strongify(self);
-        if (self.delegate && [self.delegate respondsToSelector:@selector(photo:didClickThanksAtIndex:)]) {
-            [self.delegate photo:self didClickThanksAtIndex:index];
-        }
-    }];
-    
-    
-    if (self.dataSourceLive) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.contentView setReviews:self.dataSourceLive withStartAtIndex:self.indexLib isShowCaption:_isShowCaption];
-            [self.footerView setListThumbnail:self.dataSourceLive atIndex:self.indexLib];
-
-        });
-    }
-    */
-    
     self.footerView.footerBackground = self.reviewBackground;
     self.contentView.contentBackground = self.reviewBackground;
     
     self.view.backgroundColor = self.reviewBackground;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSigTap) name:@"TKPhotoSignTap" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDoubleTap) name:@"TKPhotoDoubleTap" object:nil];
     

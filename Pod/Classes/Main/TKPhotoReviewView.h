@@ -19,6 +19,8 @@
 @property (nonatomic, copy) void(^didShowFullCaption)(UITextView* content);
 
 @property (nonatomic, copy) void (^didClose)();
+@property (nonatomic, copy) void (^didClickThanks)();
+@property (nonatomic, copy) void (^didReply)();
 
 @property (nonatomic) NSInteger currentIndex;
 @property (nonatomic) BOOL isHiddenCaption;

@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TKPhotoReviewView"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="TKPhotoReviewView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -45,31 +45,9 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bT8-1q-AUA" userLabel="PARENT">
                     <rect key="frame" x="0.0" y="552" width="375" height="115"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lCR-3z-f4y">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
-                            <subviews>
-                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x32-sD-cMq" customClass="TKCaptionView">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="115"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </view>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="x32-sD-cMq" secondAttribute="bottom" id="0m4-uf-w4M"/>
-                                <constraint firstItem="x32-sD-cMq" firstAttribute="top" secondItem="lCR-3z-f4y" secondAttribute="top" id="ZvC-hX-wg4"/>
-                                <constraint firstItem="x32-sD-cMq" firstAttribute="leading" secondItem="lCR-3z-f4y" secondAttribute="leading" id="e28-3R-UfP"/>
-                                <constraint firstAttribute="trailing" secondItem="x32-sD-cMq" secondAttribute="trailing" id="xLo-gZ-5Fq"/>
-                            </constraints>
-                        </view>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="115" id="ChJ-Kw-eFq"/>
-                        <constraint firstItem="lCR-3z-f4y" firstAttribute="top" secondItem="bT8-1q-AUA" secondAttribute="top" id="Gi0-lv-B5W"/>
-                        <constraint firstItem="lCR-3z-f4y" firstAttribute="leading" secondItem="bT8-1q-AUA" secondAttribute="leading" id="OJh-y1-9LC"/>
-                        <constraint firstAttribute="trailing" secondItem="lCR-3z-f4y" secondAttribute="trailing" id="ciL-CT-bdF"/>
-                        <constraint firstAttribute="bottom" secondItem="lCR-3z-f4y" secondAttribute="bottom" id="gRT-CU-oNc"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YjJ-cb-NvY">
@@ -106,12 +84,10 @@
                 <outlet property="backgroundAnimationView" destination="i9R-57-mpT" id="ldg-Iw-Ozn"/>
                 <outlet property="backgroundView" destination="4SS-S4-FQi" id="1c5-mj-6vY"/>
                 <outlet property="btnClose" destination="YjJ-cb-NvY" id="JOw-9k-SYL"/>
-                <outlet property="captionView" destination="x32-sD-cMq" id="Sa1-Zr-bSq"/>
                 <outlet property="collectionView" destination="y0u-9m-AU4" id="0V1-ZA-RYd"/>
                 <outlet property="heightBackgroudContrain" destination="ChJ-Kw-eFq" id="uQy-8I-Z1x"/>
                 <outlet property="heightbgView" destination="2Tb-9V-71J" id="DKt-0F-W2F"/>
                 <outlet property="parentCaptionView" destination="bT8-1q-AUA" id="3x7-14-qHq"/>
-                <outlet property="topMarginParentContrain" destination="ZvC-hX-wg4" id="uRM-0D-ufR"/>
             </connections>
             <point key="canvasLocation" x="-167.5" y="-53.5"/>
         </view>
